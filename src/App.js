@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import './App.css';
-import evnet_thumb from './assets/images/event/evnet_thumb.png';
-import beer_thumb from './assets/images/event/beer_thumb.png';
-import video_thumb from './assets/images/event/video_thumb.jpg';
+import evnet_thumb from './assets/images/evnet_thumb.png';
+import beer_thumb from './assets/images/beer_thumb.png';
+import video_thumb from './assets/images/video_thumb.jpg';
 
 import antdLogo from './assets/icons/antd.svg';
 import muiLogo from './assets/icons/mui.svg';

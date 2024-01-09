@@ -5,6 +5,7 @@ import './index.css';
 
 import App from './App';
 import EventByAntd from './pages/event/EventByAntd';
+import EventNoticeByAntd from './pages/event/EventNoticeByAntd';
 import EventByMui from './pages/event/EventByMui';
 import EventByBootstrap from './pages/event/EventByBootstrap';
 import BeerByAntd from './pages/beer/BeerByAntd';
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     {
         path: '/event/antd',
         element: <EventByAntd />,
+    },
+    {
+        path: '/event/antd/notice',
+        element: <EventNoticeByAntd />,
     },
     {
         path: '/event/mui',

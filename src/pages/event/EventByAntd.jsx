@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, ConfigProvider } from 'antd';
-import styles from './AntdEvent.module.css';
+import { Button, Card, ConfigProvider, Flex, Space } from 'antd';
+import styles from './EventByAntd.module.css';
 
-import evnet_thumb from '../../assets/images/event/evnet_thumb.png';
+import evnet_thumb from '../../assets/images/evnet_thumb.png';
 import product1 from '../../assets/images/event/products/product1.png';
 import product2 from '../../assets/images/event/products/product2.png';
 import coupon_left from '../../assets/images/event/coupon_left.png';
@@ -12,6 +12,9 @@ import arrow_left from '../../assets/icons/arrow_left.svg';
 import share from '../../assets/icons/share.svg';
 import star from '../../assets/icons/star.svg';
 import download from '../../assets/icons/download.svg';
+import { Link } from 'react-router-dom';
+import { DownloadOutlined, LeftOutlined, UploadOutlined } from '@ant-design/icons';
+import Meta from 'antd/es/card/Meta';
 
 const productList = [
     { img: product1, type: '셔츠/블라우스', productName: '데일리 베이직 셔츠 (7color)', percent: 50, price: 50000 },
@@ -29,20 +32,26 @@ export default function EventByAntd() {
         <article className="layout">
             <div>
                 <div className={styles.page__style}>
-                    <section className={styles.header}>
-                        <button className={styles.header__btn}>
-                            <img src={arrow_left} alt="back button" />
-                        </button>
-                        <h1 className={styles.header__title}>크리스마스 특별할인</h1>
-                        <button className={styles.header__btn}>
-                            <img src={share} alt="back button" />
-                        </button>
+                    <section>
+                        <Flex justify="space-between" align="center" className={styles.header}>
+                            <Link to={'notice'}>
+                                <button className={styles.header__btn}>
+                                    <LeftOutlined style={{ fontSize: 22, color: '#383838' }} />
+                                </button>
+                            </Link>
+
+                            <h1 className={styles.header__title}>크리스마스 특별할인</h1>
+
+                            <button className={styles.header__btn}>
+                                <UploadOutlined style={{ fontSize: 22, color: '#383838' }} />
+                            </button>
+                        </Flex>
                     </section>
 
                     <section>
                         <img src={evnet_thumb} alt="event main" className={styles.event__img} />
 
-                        <div className={styles.percent__section}>
+                        <Flex vertical justify="center" align="center" gap={16} className={styles.percent__section}>
                             <div className={styles.percent}>
                                 <img src={star} alt="percent start" />
                                 <h2>50%</h2>
@@ -54,7 +63,7 @@ export default function EventByAntd() {
                                 <span>최대 50%</span> 할인 상품들을 준비했어요!
                                 <br />이 기회를 놓치지 마세요!
                             </h3>
-                        </div>
+                        </Flex>
                     </section>
 
                     <section>
@@ -85,23 +94,34 @@ export default function EventByAntd() {
                         <div className={styles.top__sales}>
                             <h2>실시간 인기 TOP5</h2>
 
-                            <div className={styles.top__sales_list}>
+                            <Flex gap={16} className={styles.top__sales_list}>
                                 {productList.map((e, i) => (
-                                    <div key={`product-${i}`} className={styles.product}>
-                                        <img src={e.img} alt="product" />
-                                        <div className={styles.content}>
-                                            <div>
-                                                <p className={styles.type}>{e.type}</p>
-                                                <h3>{e.productName}</h3>
+                                    <ConfigProvider
+                                        theme={{
+                                            token: {
+                                                paddingLG: 0,
+                                            },
+                                        }}
+                                    >
+                                        <Card
+                                            cover={<img alt="product" src={e.img} className={styles.product__image} />}
+                                        >
+                                            <div className={styles.product}>
+                                                <Flex className={styles.content} vertical gap={8} align="flex-start">
+                                                    <div>
+                                                        <p className={styles.type}>{e.type}</p>
+                                                        <h3>{e.productName}</h3>
+                                                    </div>
+                                                    <div className={styles.price__layout}>
+                                                        <p className={styles.percent}>{e.percent}%</p>
+                                                        <p className={styles.price}>{e.price.toLocaleString()}원</p>
+                                                    </div>
+                                                </Flex>
                                             </div>
-                                            <div className={styles.price__layout}>
-                                                <p className={styles.percent}>{e.percent}%</p>
-                                                <p className={styles.price}>{e.price.toLocaleString()}원</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        </Card>
+                                    </ConfigProvider>
                                 ))}
-                            </div>
+                            </Flex>
 
                             <ConfigProvider
                                 theme={{
@@ -133,27 +153,27 @@ export default function EventByAntd() {
                         </h2>
                         <p>쿠폰 지급 기간 : ~12월 31일까지</p>
 
-                        <div className={styles.coupon__layout}>
+                        <Flex>
                             <div className={styles.coupon}>
                                 <img src={coupon_left} alt="coupon_left" />
 
-                                <div className={styles.coupon__content}>
+                                <Flex vertical justify="center" align="center" className={styles.coupon__content}>
                                     <p>COUPON</p>
                                     <h4>15%</h4>
-                                </div>
+                                </Flex>
                             </div>
 
                             <div className={styles.coupon}>
                                 <img src={coupon_right} alt="coupon_right" />
 
-                                <div className={styles.coupon__download}>
+                                <Flex vertical justify="center" align="center" className={styles.coupon__download}>
                                     <p>다운받기</p>
                                     <button>
-                                        <img src={download} alt="download" />
+                                        <DownloadOutlined style={{ fontSize: 20, color: '#fff' }} />
                                     </button>
-                                </div>
+                                </Flex>
                             </div>
-                        </div>
+                        </Flex>
                     </section>
                 </div>
             </div>
