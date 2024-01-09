@@ -132,3 +132,8 @@ body,
 #root {
     height: 100%;
 }
+
+.layout {
+    width: 393px;
+    margin: 0 auto;
+}

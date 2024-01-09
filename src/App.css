@@ -1,4 +1,4 @@
-article {
+.app__layout {
     display: flex;
     justify-content: center;
     align-items: center;

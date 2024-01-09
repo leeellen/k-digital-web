@@ -1,5 +1,162 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button, ConfigProvider } from 'antd';
+import styles from './AntdEvent.module.css';
+
+import evnet_thumb from '../../assets/images/event/evnet_thumb.png';
+import product1 from '../../assets/images/event/products/product1.png';
+import product2 from '../../assets/images/event/products/product2.png';
+import coupon_left from '../../assets/images/event/coupon_left.png';
+import coupon_right from '../../assets/images/event/coupon_right.png';
+
+import arrow_left from '../../assets/icons/arrow_left.svg';
+import share from '../../assets/icons/share.svg';
+import star from '../../assets/icons/star.svg';
+import download from '../../assets/icons/download.svg';
+
+const productList = [
+    { img: product1, type: '셔츠/블라우스', productName: '데일리 베이직 셔츠 (7color)', percent: 50, price: 50000 },
+    { img: product2, type: '셔츠/블라우스', productName: '스탠다드 블루종 스웨이드 자켓', percent: 50, price: 100000 },
+    { img: product1, type: '셔츠/블라우스', productName: '데일리 베이직 셔츠 (7color)', percent: 50, price: 50000 },
+    { img: product2, type: '셔츠/블라우스', productName: '스탠다드 블루종 스웨이드 자켓', percent: 50, price: 100000 },
+];
 
 export default function EventByAntd() {
-    return <div>EventByAntd</div>;
+    const [currentFilter, setCurrentFilter] = useState('남성의류');
+
+    const handleCurrnetFilter = (newFilter) => setCurrentFilter(newFilter);
+
+    return (
+        <article className="layout">
+            <div>
+                <div className={styles.page__style}>
+                    <section className={styles.header}>
+                        <button className={styles.header__btn}>
+                            <img src={arrow_left} alt="back button" />
+                        </button>
+                        <h1 className={styles.header__title}>크리스마스 특별할인</h1>
+                        <button className={styles.header__btn}>
+                            <img src={share} alt="back button" />
+                        </button>
+                    </section>
+
+                    <section>
+                        <img src={evnet_thumb} alt="event main" className={styles.event__img} />
+
+                        <div className={styles.percent__section}>
+                            <div className={styles.percent}>
+                                <img src={star} alt="percent start" />
+                                <h2>50%</h2>
+                            </div>
+
+                            <h3>
+                                고객 여러분들을 위해 다양한
+                                <br />
+                                <span>최대 50%</span> 할인 상품들을 준비했어요!
+                                <br />이 기회를 놓치지 마세요!
+                            </h3>
+                        </div>
+                    </section>
+
+                    <section>
+                        <ul className={styles.filter__list}>
+                            <li
+                                className={styles.filter__btn}
+                                data-active={currentFilter === '남성의류'}
+                                onClick={() => handleCurrnetFilter('남성의류')}
+                            >
+                                남성의류
+                            </li>
+                            <li
+                                className={styles.filter__btn}
+                                data-active={currentFilter === '여성의류'}
+                                onClick={() => handleCurrnetFilter('여성의류')}
+                            >
+                                여성의류
+                            </li>
+                            <li
+                                className={styles.filter__btn}
+                                data-active={currentFilter === '가전제품'}
+                                onClick={() => handleCurrnetFilter('가전제품')}
+                            >
+                                가전제품
+                            </li>
+                        </ul>
+
+                        <div className={styles.top__sales}>
+                            <h2>실시간 인기 TOP5</h2>
+
+                            <div className={styles.top__sales_list}>
+                                {productList.map((e, i) => (
+                                    <div key={`product-${i}`} className={styles.product}>
+                                        <img src={e.img} alt="product" />
+                                        <div className={styles.content}>
+                                            <div>
+                                                <p className={styles.type}>{e.type}</p>
+                                                <h3>{e.productName}</h3>
+                                            </div>
+                                            <div className={styles.price__layout}>
+                                                <p className={styles.percent}>{e.percent}%</p>
+                                                <p className={styles.price}>{e.price.toLocaleString()}원</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <ConfigProvider
+                                theme={{
+                                    token: {
+                                        colorPrimary: '#6B0603',
+                                        borderRadius: 8,
+                                        controlHeight: 56,
+                                    },
+                                    components: {
+                                        Button: {
+                                            fontSize: 16,
+                                            fontWeight: 700,
+                                        },
+                                    },
+                                }}
+                            >
+                                <Button type="primary" block>
+                                    전체 상품 보기
+                                </Button>
+                            </ConfigProvider>
+                        </div>
+                    </section>
+
+                    <section className={styles.coupon__section}>
+                        <h2>
+                            어디서든 사용 가능한
+                            <br />
+                            15% 쿠폰을 드려요!
+                        </h2>
+                        <p>쿠폰 지급 기간 : ~12월 31일까지</p>
+
+                        <div className={styles.coupon__layout}>
+                            <div className={styles.coupon}>
+                                <img src={coupon_left} alt="coupon_left" />
+
+                                <div className={styles.coupon__content}>
+                                    <p>COUPON</p>
+                                    <h4>15%</h4>
+                                </div>
+                            </div>
+
+                            <div className={styles.coupon}>
+                                <img src={coupon_right} alt="coupon_right" />
+
+                                <div className={styles.coupon__download}>
+                                    <p>다운받기</p>
+                                    <button>
+                                        <img src={download} alt="download" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </article>
+    );
 }

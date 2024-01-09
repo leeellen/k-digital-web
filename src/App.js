@@ -41,7 +41,7 @@ const cardList = [
 
 function App() {
     return (
-        <article>
+        <article className="app__layout">
             <ul className="cards">
                 {cardList.map((e, i) => (
                     <li key={`card-${i}`}>
