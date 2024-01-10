@@ -1,3 +1,8 @@
+p,
+hr {
+    margin: 0;
+}
+
 .page__style {
     height: 100vh;
     overflow: auto;
@@ -127,6 +132,10 @@
 }
 
 .comment__card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    flex-direction: column;
     padding: 20px 16px;
     align-self: stretch;
     border-top: 1px solid #fafafa;
@@ -168,4 +177,31 @@
     position: sticky;
     bottom: 0;
     background-color: #fff;
+}
+.comment__input__field {
+    border-radius: 22px;
+    border: 1px solid #eaeaea;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 11px 8px;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    -ms-border-radius: 22px;
+    -o-border-radius: 22px;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.comment__input__field:hover,
+.comment__input__field:active,
+.comment__input__field:focus {
+    border: 1px solid #ff6b3c;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.comment__input__field::placeholder {
+    color: #a8a8a8;
 }
