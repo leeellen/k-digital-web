@@ -7,7 +7,9 @@ import App from './App';
 import EventByAntd from './pages/event/EventByAntd';
 import EventNoticeByAntd from './pages/event/EventNoticeByAntd';
 import EventByMui from './pages/event/EventByMui';
+import EventNoticeByMui from './pages/event/EventNoticeByMui';
 import EventByBootstrap from './pages/event/EventByBootstrap';
+import EventNoticeByBootstrap from './pages/event/EventNoticeByBootstrap';
 import BeerByAntd from './pages/beer/BeerByAntd';
 import BeerByMui from './pages/beer/BeerByMui';
 import BeerByBootstrap from './pages/beer/BeerByBootstrap';
@@ -33,8 +35,16 @@ const router = createBrowserRouter([
         element: <EventByMui />,
     },
     {
+        path: '/event/mui/notice',
+        element: <EventNoticeByMui />,
+    },
+    {
         path: '/event/bootstrap',
         element: <EventByBootstrap />,
+    },
+    {
+        path: '/event/bootstrap/notice',
+        element: <EventNoticeByBootstrap />,
     },
     {
         path: '/beer/antd',

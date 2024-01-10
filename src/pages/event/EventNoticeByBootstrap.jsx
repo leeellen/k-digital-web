@@ -14,7 +14,7 @@ import styles from './EventNoticeByAntd.module.css';
 import notice_result from '../../assets/images/event/notice_result.png';
 import leeshop from '../../assets/icons/leeshop.svg';
 
-export const commentList = [
+const commentList = [
     {
         id: '6213dbc0-de02-4938-87c8-2a982fe6fc2e',
         img: 'http://dummyimage.com/202x100.png/ff4444/ffffff',

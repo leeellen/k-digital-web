@@ -2,11 +2,11 @@
     background: #b02d29;
     height: 100vh;
     overflow: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 .page__style::-webkit-scrollbar {
-    display: none;
+    display: none; /* Chrome, Safari, Opera*/
 }
 .header {
     position: sticky;

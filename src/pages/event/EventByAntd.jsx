@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Card, ConfigProvider, Flex, Space } from 'antd';
+import { Link } from 'react-router-dom';
+import { Button, Card, ConfigProvider, Flex } from 'antd';
+import { DownloadOutlined, LeftOutlined, UploadOutlined } from '@ant-design/icons';
 import styles from './EventByAntd.module.css';
 
 import evnet_thumb from '../../assets/images/evnet_thumb.png';
@@ -7,16 +9,9 @@ import product1 from '../../assets/images/event/products/product1.png';
 import product2 from '../../assets/images/event/products/product2.png';
 import coupon_left from '../../assets/images/event/coupon_left.png';
 import coupon_right from '../../assets/images/event/coupon_right.png';
-
-import arrow_left from '../../assets/icons/arrow_left.svg';
-import share from '../../assets/icons/share.svg';
 import star from '../../assets/icons/star.svg';
-import download from '../../assets/icons/download.svg';
-import { Link } from 'react-router-dom';
-import { DownloadOutlined, LeftOutlined, UploadOutlined } from '@ant-design/icons';
-import Meta from 'antd/es/card/Meta';
 
-const productList = [
+export const productList = [
     { img: product1, type: '셔츠/블라우스', productName: '데일리 베이직 셔츠 (7color)', percent: 50, price: 50000 },
     { img: product2, type: '셔츠/블라우스', productName: '스탠다드 블루종 스웨이드 자켓', percent: 50, price: 100000 },
     { img: product1, type: '셔츠/블라우스', productName: '데일리 베이직 셔츠 (7color)', percent: 50, price: 50000 },
@@ -32,21 +27,21 @@ export default function EventByAntd() {
         <article className="layout">
             <div>
                 <div className={styles.page__style}>
-                    <section>
-                        <Flex justify="space-between" align="center" className={styles.header}>
-                            <Link to={'notice'}>
-                                <button className={styles.header__btn}>
-                                    <LeftOutlined style={{ fontSize: 22, color: '#383838' }} />
-                                </button>
-                            </Link>
+                    <Flex justify="space-between" align="center" className={styles.header}>
+                        <Link to={'/'}>
+                            <button className={styles.header__btn}>
+                                <LeftOutlined style={{ fontSize: 22, color: '#383838' }} />
+                            </button>
+                        </Link>
 
-                            <h1 className={styles.header__title}>크리스마스 특별할인</h1>
+                        <h1 className={styles.header__title}>크리스마스 특별할인</h1>
 
+                        <Link to={'notice'}>
                             <button className={styles.header__btn}>
                                 <UploadOutlined style={{ fontSize: 22, color: '#383838' }} />
                             </button>
-                        </Flex>
-                    </section>
+                        </Link>
+                    </Flex>
 
                     <section>
                         <img src={evnet_thumb} alt="event main" className={styles.event__img} />
@@ -151,7 +146,7 @@ export default function EventByAntd() {
                             <br />
                             15% 쿠폰을 드려요!
                         </h2>
-                        <p>쿠폰 지급 기간 : ~12월 31일까지</p>
+                        <p className={styles.coupon__date}>쿠폰 지급 기간 : ~12월 31일까지</p>
 
                         <Flex>
                             <div className={styles.coupon}>
