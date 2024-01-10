@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import evnet_thumb from './assets/images/evnet_thumb.png';
 import beer_thumb from './assets/images/beer_thumb.png';
 import video_thumb from './assets/images/video_thumb.jpg';

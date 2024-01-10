@@ -15,6 +15,9 @@
     border-bottom: 1px solid #eaeaea;
     background: #fff;
     z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .header__btn {
     background: none;
@@ -39,6 +42,9 @@
 }
 .percent__section {
     padding: 40px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .percent {
@@ -123,6 +129,8 @@
 }
 
 .top__sales_list {
+    display: flex;
+    gap: 16px;
     padding: 16px;
     padding-bottom: 24px;
     overflow: auto;
@@ -134,7 +142,7 @@
     display: none; /* Chrome, Safari, Opera*/
 }
 .product {
-    border-radius: 16px;
+    border-radius: 0px 0px 16px 16px;
     background: #fff;
 }
 
@@ -143,8 +151,13 @@
     width: 240px !important;
     height: 240px;
     object-fit: cover;
+    display: block;
 }
 .product .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
     border-radius: 16px 16px 0px 0px;
     padding: 8px;
     -webkit-border-radius: 16px 16px 0px 0px;
@@ -160,6 +173,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: 150%; /* 21px */
+    margin: 0;
 }
 .product .content h3 {
     height: 48px;
@@ -183,6 +197,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: 150%; /* 27px */
+    margin: 0;
 }
 .product .content .price {
     color: #b02d29;
@@ -191,6 +206,27 @@
     font-style: normal;
     font-weight: 700;
     line-height: 150%; /* 27px */
+    margin: 0;
+}
+
+.show__all__btn {
+    width: 100%;
+    padding: 16px 8px;
+    border-radius: 8px;
+    background: #6b0603;
+    border: none;
+    color: #fff;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 24px */
+}
+.show__all__btn:hover,
+.show__all__btn:focus,
+.show__all__btn:active {
+    background: #6b0603 !important;
+    border: none !important;
 }
 
 .coupon__section {
@@ -223,6 +259,10 @@
 
 .coupon__content,
 .coupon__download {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 0;
     width: 100%;
