@@ -13,9 +13,7 @@ import EventNoticeByBootstrap from './pages/event/EventNoticeByBootstrap';
 import BeerByAntd from './pages/beer/BeerByAntd';
 import BeerByMui from './pages/beer/BeerByMui';
 import BeerByBootstrap from './pages/beer/BeerByBootstrap';
-import VideoEditorByAntd from './pages/videoEditor/VideoEditorByAntd';
-import VideoEditorByMui from './pages/videoEditor/VideoEditorByMui';
-import VideoEditorByBootstrap from './pages/videoEditor/VideoEditorByBootstrap';
+import VideoEditor from './pages/videoEditor/VideoEditor';
 
 const router = createBrowserRouter([
     {
@@ -59,16 +57,8 @@ const router = createBrowserRouter([
         element: <BeerByBootstrap />,
     },
     {
-        path: '/video/antd',
-        element: <VideoEditorByAntd />,
-    },
-    {
-        path: '/video/mui',
-        element: <VideoEditorByMui />,
-    },
-    {
-        path: '/video/bootstrap',
-        element: <VideoEditorByBootstrap />,
+        path: '/video',
+        element: <VideoEditor />,
     },
 ]);
 

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import evnet_thumb from './assets/images/evnet_thumb.png';
 import beer_thumb from './assets/images/beer_thumb.png';
@@ -8,6 +7,7 @@ import video_thumb from './assets/images/video_thumb.jpg';
 
 import antdLogo from './assets/icons/antd.svg';
 import muiLogo from './assets/icons/mui.svg';
+import ffmpeg from './assets/icons/ffmpeg.png';
 export const bootStrapLogo = 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg';
 
 const cardList = [
@@ -32,12 +32,7 @@ const cardList = [
     {
         img: video_thumb,
         title: '비디오 에디터',
-        children: [
-            { img: antdLogo, to: '/video/antd', library: 'Antd' },
-            { img: muiLogo, to: '/video/mui', library: 'Mui' },
-            { img: bootStrapLogo, to: '/video/bootstrap', library: 'BootStrap' },
-        ],
-        // https://github.com/video-react/video-react#readme
+        children: [{ img: ffmpeg, to: '/video' }],
     },
 ];
 

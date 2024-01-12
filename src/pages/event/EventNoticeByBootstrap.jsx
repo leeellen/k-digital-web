@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import styles from './EventNoticeByBootstrap.module.css';
 import { commentList } from './EventNoticeByAntd';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import notice_result from '../../assets/images/event/notice_result.png';
 import { bootStrapLogo } from '../../App';

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
 import styles from './EventByBootstrap.module.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import evnet_thumb from '../../assets/images/evnet_thumb.png';
 import coupon_left from '../../assets/images/event/coupon_left.png';
