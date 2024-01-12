@@ -5,6 +5,7 @@ import { VideoPlayer } from './VideoPlayer';
 import VideoUpload from './VideoUpload';
 import VideoConversionButton from './VideoConversionButton';
 import { sliderValueToVideoTime } from '../../utils/utils';
+
 const ffmpeg = createFFmpeg({ log: true });
 
 function VideoEditor() {
@@ -63,7 +64,7 @@ function VideoEditor() {
     }, [videoFile]);
 
     return (
-        <div>
+        <div style={{ background: '#fff' }}>
             <Spin
                 spinning={processing || !ffmpegLoaded}
                 tip={!ffmpegLoaded ? 'Waiting for FFmpeg to load...' : 'Processing...'}
