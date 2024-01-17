@@ -1,10 +1,13 @@
+import { useEffect, useRef, useState } from 'react';
 import { createFFmpeg } from '@ffmpeg/ffmpeg';
-import { useEffect, useState } from 'react';
-import { Slider, Spin } from 'antd';
 import { VideoPlayer } from './VideoPlayer';
-import VideoUpload from './VideoUpload';
 import VideoConversionButton from './VideoConversionButton';
 import { sliderValueToVideoTime } from '../../utils/utils';
+import styles from './VideoEditor.module.css';
+import { Button, Modal, Spinner, Toast, ToastContainer } from 'react-bootstrap';
+
+import MultiRangeSlider from '../../components/MultiRangeSlider';
+import video_placeholder from '../../assets/images/editor/video_placeholder.png';
 
 const ffmpeg = createFFmpeg({ log: true });
 
@@ -13,9 +16,10 @@ function VideoEditor() {
     const [videoFile, setVideoFile] = useState();
     const [videoPlayerState, setVideoPlayerState] = useState();
     const [videoPlayer, setVideoPlayer] = useState();
-    const [gifUrl, setGifUrl] = useState();
     const [sliderValues, setSliderValues] = useState([0, 100]);
     const [processing, setProcessing] = useState(false);
+    const [show, setShow] = useState(false);
+    const uploadFile = useRef('');
 
     useEffect(() => {
         // loading ffmpeg on startup
@@ -57,86 +61,134 @@ function VideoEditor() {
         // restoring the default state
         if (!videoFile) {
             setVideoPlayerState(undefined);
-            setSliderValues([0, 100]);
             setVideoPlayerState(undefined);
-            setGifUrl(undefined);
         }
+        setSliderValues([0, 100]);
     }, [videoFile]);
 
+    if (!ffmpegLoaded) return <div>load</div>;
+
     return (
-        <div style={{ background: '#fff' }}>
-            <Spin
-                spinning={processing || !ffmpegLoaded}
-                tip={!ffmpegLoaded ? 'Waiting for FFmpeg to load...' : 'Processing...'}
-            >
-                <div>
-                    {videoFile ? (
-                        <VideoPlayer
-                            src={URL.createObjectURL(videoFile)}
-                            onPlayerChange={(videoPlayer) => {
-                                setVideoPlayer(videoPlayer);
-                            }}
-                            onChange={(videoPlayerState) => {
-                                setVideoPlayerState(videoPlayerState);
-                            }}
+        <article className="layout" style={{ padding: '56px 16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                <h1 className={styles.title}>Video Edit</h1>
+
+                {videoFile && (
+                    <div>
+                        <input
+                            onChange={(e) => setVideoFile(e.target.files[0])}
+                            type="file"
+                            accept="video/*"
+                            style={{ display: 'none' }}
+                            ref={uploadFile}
                         />
-                    ) : (
-                        <h1>Upload a video</h1>
-                    )}
-                </div>
-                <div className={'upload-div'}>
-                    <VideoUpload
-                        disabled={!!videoFile}
-                        onChange={(videoFile) => {
-                            setVideoFile(videoFile);
-                        }}
-                        onRemove={() => {
-                            setVideoFile(undefined);
-                        }}
-                    />
-                </div>
-                <div className={'slider-div'}>
-                    <h3>Cut Video</h3>
-                    <Slider
-                        disabled={!videoPlayerState}
-                        value={sliderValues}
-                        range={true}
-                        onChange={(values) => {
-                            setSliderValues(values);
-                        }}
-                        tooltip={{
-                            formatter: null,
-                        }}
-                    />
-                </div>
-                <div className={'conversion-div'}>
-                    <VideoConversionButton
-                        onConversionStart={() => {
-                            setProcessing(true);
-                        }}
-                        onConversionEnd={() => {
-                            setProcessing(false);
-                        }}
-                        ffmpeg={ffmpeg}
-                        videoPlayerState={videoPlayerState}
-                        sliderValues={sliderValues}
-                        videoFile={videoFile}
-                        onGifCreated={(girUrl) => {
-                            setGifUrl(girUrl);
-                        }}
-                    />
-                </div>
-                {gifUrl && (
-                    <div className={'gif-div'}>
-                        <h3>Resulting GIF</h3>
-                        <img src={gifUrl} className={'gif'} alt={'GIF file generated in the client side'} />
-                        <a href={gifUrl} download={'test.gif'} className={'ant-btn ant-btn-default'}>
-                            Download
-                        </a>
+                        <Button
+                            className={styles.re__upload__btn}
+                            onClick={() => uploadFile.current.click()}
+                            style={{ width: 'fit-content' }}
+                        >
+                            비디오 재선택
+                        </Button>
                     </div>
                 )}
-            </Spin>
-        </div>
+            </div>
+
+            <section>
+                {videoFile ? (
+                    <VideoPlayer
+                        src={videoFile}
+                        onPlayerChange={(videoPlayer) => {
+                            setVideoPlayer(videoPlayer);
+                        }}
+                        onChange={(videoPlayerState) => {
+                            setVideoPlayerState(videoPlayerState);
+                        }}
+                    />
+                ) : (
+                    <>
+                        <img src={video_placeholder} alt="비디오를 업로드해주세요." style={{ marginBottom: 32 }} />
+                        <div>
+                            <input
+                                onChange={(e) => setVideoFile(e.target.files[0])}
+                                type="file"
+                                accept="video/*"
+                                style={{ display: 'none' }}
+                                ref={uploadFile}
+                            />
+                            <Button className={styles.upload__btn} onClick={() => uploadFile.current.click()}>
+                                비디오 업로드하기
+                            </Button>
+                        </div>
+                    </>
+                )}
+            </section>
+
+            {videoFile && (
+                <>
+                    <section
+                        style={{
+                            width: '100%',
+                            marginTop: 30,
+                            marginBottom: 62,
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <MultiRangeSlider
+                            min={0}
+                            max={100}
+                            onChange={({ min, max }) => {
+                                setSliderValues([min, max]);
+                            }}
+                        />
+                    </section>
+
+                    <section>
+                        <VideoConversionButton
+                            onConversionStart={() => {
+                                setProcessing(true);
+                            }}
+                            onConversionEnd={() => {
+                                setProcessing(false);
+                                setShow(true);
+                            }}
+                            ffmpeg={ffmpeg}
+                            videoPlayerState={videoPlayerState}
+                            sliderValues={sliderValues}
+                            videoFile={videoFile}
+                        />
+                    </section>
+                </>
+            )}
+
+            <ToastContainer className="p-3" position={'top-center'} style={{ zIndex: 1 }}>
+                <Toast onClose={() => setShow(false)} show={show} delay={2000} bg="dark" autohide>
+                    <Toast.Header closeButton={false}>
+                        <strong className="me-auto">Video Editor</strong>
+                    </Toast.Header>
+                    <Toast.Body>내보내기가 완료되었습니다.</Toast.Body>
+                </Toast>
+            </ToastContainer>
+
+            <Modal
+                show={processing}
+                onHide={() => setProcessing(false)}
+                backdrop={false}
+                keyboard={false}
+                centered
+                size="sm"
+            >
+                <div style={{ textAlign: 'center' }}>
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+
+                    <p style={{ marginTop: 16, fontSize: 14, fontWeight: 600, color: '#c8c8c8' }}>
+                        내보내기가 진행중입니다.
+                    </p>
+                </div>
+            </Modal>
+        </article>
     );
 }
 

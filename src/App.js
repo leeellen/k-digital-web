@@ -8,7 +8,7 @@ import video_thumb from './assets/images/video_thumb.jpg';
 import antdLogo from './assets/icons/antd.svg';
 import muiLogo from './assets/icons/mui.svg';
 import ffmpeg from './assets/icons/ffmpeg.png';
-export const bootStrapLogo = 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg';
+import bootStrapLogo from './assets/icons/bootStrapLogo.svg';
 
 const cardList = [
     {

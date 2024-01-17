@@ -6,13 +6,13 @@ import { commentList } from './EventNoticeByAntd';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import notice_result from '../../assets/images/event/notice_result.png';
-import { bootStrapLogo } from '../../App';
 import leeshop from '../../assets/icons/leeshop.svg';
 import search from '../../assets/icons/search.svg';
 import menu from '../../assets/icons/menu.svg';
 import heart from '../../assets/icons/heart.svg';
 import comment from '../../assets/icons/comment.svg';
 import more from '../../assets/icons/more.svg';
+import bootStrapLogo from '../../assets/icons/bootStrapLogo.svg';
 
 export default function EventNoticeByAntd() {
     const [commentToggle, setCommentToggle] = useState(false);

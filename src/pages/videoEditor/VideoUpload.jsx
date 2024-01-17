@@ -1,4 +1,5 @@
-import { Button, Upload } from "antd"
+import { Button, Upload } from 'antd';
+import video_placeholder from '../../assets/images/editor/video_placeholder.png';
 
 function VideoUpload({ disabled, onChange = () => {}, onRemove = () => {} }) {
     return (
@@ -6,12 +7,12 @@ function VideoUpload({ disabled, onChange = () => {}, onRemove = () => {} }) {
             <Upload
                 disabled={disabled}
                 beforeUpload={() => {
-                    return false
+                    return false;
                 }}
                 accept="video/*"
                 onChange={(info) => {
                     if (info.fileList && info.fileList.length > 0) {
-                        onChange(info.fileList[0].originFileObj)
+                        onChange(info.fileList[0].originFileObj);
                     }
                 }}
                 showUploadList={false}
@@ -22,13 +23,13 @@ function VideoUpload({ disabled, onChange = () => {}, onRemove = () => {} }) {
                 danger={true}
                 disabled={!disabled}
                 onClick={() => {
-                    onRemove(undefined)
+                    onRemove(undefined);
                 }}
             >
                 Remove
             </Button>
         </>
-    )
+    );
 }
 
-export default VideoUpload
+export default VideoUpload;

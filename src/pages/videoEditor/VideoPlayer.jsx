@@ -1,45 +1,46 @@
-import { BigPlayButton, ControlBar, LoadingSpinner, Player, PlayToggle } from "video-react"
-import "video-react/dist/video-react.css"
-import { useEffect, useState } from "react"
+import { BigPlayButton, ControlBar, LoadingSpinner, Player, PlayToggle } from 'video-react';
+import 'video-react/dist/video-react.css';
+import { useEffect, useRef, useState } from 'react';
+import video_play from '../../assets/icons/video_play.svg';
 
-export function VideoPlayer({
-    src,
-    onPlayerChange = () => {},
-    onChange = () => {},
-    startTime = undefined,
-}) {
-    const [player, setPlayer] = useState(undefined)
-    const [playerState, setPlayerState] = useState(undefined)
+export function VideoPlayer({ src, onPlayerChange = () => {}, onChange = () => {}, startTime = undefined }) {
+    const [player, setPlayer] = useState(undefined);
+    const [playerState, setPlayerState] = useState(undefined);
+    const [source, setSource] = useState();
+
+    useEffect(() => {
+        setSource(URL.createObjectURL(src));
+    }, [src]);
 
     useEffect(() => {
         if (playerState) {
-            onChange(playerState)
+            onChange(playerState);
         }
-    }, [playerState])
+    }, [playerState]);
 
     useEffect(() => {
-        onPlayerChange(player)
+        onPlayerChange(player);
 
         if (player) {
-            player.subscribeToStateChange(setPlayerState)
+            player.subscribeToStateChange(setPlayerState);
         }
-    }, [player])
+    }, [player]);
 
     return (
-        <div className={"video-player"}>
+        <div className={'video-player'}>
             <Player
                 ref={(player) => {
-                    setPlayer(player)
+                    setPlayer(player);
                 }}
                 startTime={startTime}
+                src={source}
             >
-                <source src={src} />
+                <source src={source} />
                 <BigPlayButton position="center" />
+
                 <LoadingSpinner />
-                <ControlBar autoHide={false} disableDefaultControls={true}>
-                    <PlayToggle />
-                </ControlBar>
+                <ControlBar disableCompletely></ControlBar>
             </Player>
         </div>
-    )
+    );
 }
