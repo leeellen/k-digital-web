@@ -1,0 +1,35 @@
+.header {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 12px 0;
+}
+
+.header__contents {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__btn {
+    background: none;
+    margin: 0;
+    border: none;
+}
+
+.header__links {
+    display: flex;
+    gap: 16px;
+}
+.header__links a {
+    color: none;
+    text-decoration: none;
+}
+
+.header__links p {
+    color: #828282;
+    font-size: 16px;
+    font-weight: 500;
+}
+.header__links p[data-active='true'] {
+    color: #000000;
+}

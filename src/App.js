@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import evnet_thumb from './assets/images/evnet_thumb.png';
@@ -9,6 +9,10 @@ import antdLogo from './assets/icons/antd.svg';
 import muiLogo from './assets/icons/mui.svg';
 import ffmpeg from './assets/icons/ffmpeg.png';
 import bootStrapLogo from './assets/icons/bootStrapLogo.svg';
+import Layout from './components/Layout';
+import VideoEditor from './pages/videoEditor/VideoEditor';
+import Login from './pages/Login';
+import PhotoEditor from './pages/PhotoEditor';
 
 const cardList = [
     {
@@ -39,26 +43,13 @@ const cardList = [
 function App() {
     return (
         <article className="app__layout">
-            <ul className="cards">
-                {cardList.map((e, i) => (
-                    <li key={`card-${i}`}>
-                        <div className="card">
-                            <img src={e.img} className="card__image" alt="" />
-                            <div className="card__overlay">
-                                <ul className="logo__list">
-                                    {e.children.map((x, index) => (
-                                        <Link to={x.to} key={`${x.library}-logo-${index}`}>
-                                            <li className="logo">
-                                                <img src={x.img} alt={`${x.library}-logo`} className="logo__image" />
-                                            </li>
-                                        </Link>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            <Routes>
+                <Route element={<Layout />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<VideoEditor />} />
+                    <Route path="/photo" element={<PhotoEditor />} />
+                </Route>
+            </Routes>
         </article>
     );
 }
