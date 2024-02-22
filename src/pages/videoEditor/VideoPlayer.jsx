@@ -36,7 +36,6 @@ export function VideoPlayer({ src, onPlayerChange = () => {}, onChange = () => {
             >
                 <source src={source} />
                 <BigPlayButton position="center" />
-
                 <LoadingSpinner />
                 <ControlBar disableCompletely></ControlBar>
             </Player>

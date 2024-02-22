@@ -1,16 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { createFFmpeg } from '@ffmpeg/ffmpeg';
+import { Button, Modal, Spinner, Toast, ToastContainer } from 'react-bootstrap';
+import { ConfigProvider, Slider } from 'antd';
+
 import { VideoPlayer } from './VideoPlayer';
 import VideoConversionButton from './VideoConversionButton';
 import { sliderValueToVideoTime } from '../../utils/utils';
+
 import styles from './VideoEditor.module.css';
-import { Button, Modal, Spinner, Toast, ToastContainer } from 'react-bootstrap';
 import video_icon from '../../assets/icons/video_icon.svg';
-import { ConfigProvider, Slider } from 'antd';
+import check from '../../assets/icons/check.svg';
 
 const ffmpeg = createFFmpeg({ log: true });
 
 function VideoEditor() {
+    const uploadFile = useRef('');
     const [ffmpegLoaded, setFFmpegLoaded] = useState(false);
     const [videoFile, setVideoFile] = useState();
     const [videoPlayerState, setVideoPlayerState] = useState();
@@ -18,16 +22,8 @@ function VideoEditor() {
     const [sliderValues, setSliderValues] = useState([0, 100]);
     const [processing, setProcessing] = useState(false);
     const [show, setShow] = useState(false);
-    const uploadFile = useRef('');
 
-    console.log('', {
-        videoFile,
-        uploadFile,
-        videoPlayer,
-        videoPlayerState,
-    });
     useEffect(() => {
-        // loading ffmpeg on startup
         ffmpeg.load().then(() => {
             setFFmpegLoaded(true);
         });
@@ -35,8 +31,6 @@ function VideoEditor() {
 
     useEffect(() => {
         const min = sliderValues[0];
-        // when the slider values are updated, updating the
-        // video time
         if (min !== undefined && videoPlayerState && videoPlayer) {
             videoPlayer.seek(sliderValueToVideoTime(videoPlayerState.duration, min));
         }
@@ -44,8 +38,6 @@ function VideoEditor() {
 
     useEffect(() => {
         if (videoPlayer && videoPlayerState) {
-            // allowing users to watch only the portion of
-            // the video selected by the slider
             const [min, max] = sliderValues;
 
             const minTime = sliderValueToVideoTime(videoPlayerState.duration, min);
@@ -55,15 +47,12 @@ function VideoEditor() {
                 videoPlayer.seek(minTime);
             }
             if (videoPlayerState.currentTime > maxTime) {
-                // looping logic
                 videoPlayer.seek(minTime);
             }
         }
     }, [videoPlayerState]);
 
     useEffect(() => {
-        // when the current videoFile is removed,
-        // restoring the default state
         if (!videoFile) {
             setVideoPlayerState(undefined);
             setVideoPlayerState(undefined);
@@ -200,11 +189,22 @@ function VideoEditor() {
             )}
 
             <ToastContainer className="p-3" position={'top-center'} style={{ zIndex: 1 }}>
-                <Toast onClose={() => setShow(false)} show={show} delay={2000} bg="dark" autohide>
-                    <Toast.Header closeButton={false}>
-                        <strong className="me-auto">Video Editor</strong>
-                    </Toast.Header>
-                    <Toast.Body>내보내기가 완료되었습니다.</Toast.Body>
+                <Toast onClose={() => setShow(false)} show={show} delay={2000} bg="" autohide>
+                    <div
+                        style={{
+                            display: 'flex',
+                            gap: 6,
+                            fontSize: 13,
+                            fontWeight: 600,
+                            color: '#4F4F4F',
+                            alignContent: 'end',
+                            justifyContent: 'center',
+                            padding: '12px 24px',
+                        }}
+                    >
+                        <img src={check} alt="check" />
+                        내보내기가 완료되었습니다.
+                    </div>
                 </Toast>
             </ToastContainer>
 
@@ -221,7 +221,7 @@ function VideoEditor() {
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
 
-                    <p style={{ marginTop: 16, fontSize: 14, fontWeight: 600, color: '#c8c8c8' }}>
+                    <p style={{ marginTop: 16, fontSize: 14, fontWeight: 600, color: '#4F4F4F' }}>
                         내보내기가 진행중입니다.
                     </p>
                 </div>
