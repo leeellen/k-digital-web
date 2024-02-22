@@ -5,9 +5,8 @@ import VideoConversionButton from './VideoConversionButton';
 import { sliderValueToVideoTime } from '../../utils/utils';
 import styles from './VideoEditor.module.css';
 import { Button, Modal, Spinner, Toast, ToastContainer } from 'react-bootstrap';
-
-import MultiRangeSlider from '../../components/MultiRangeSlider';
-import video_placeholder from '../../assets/images/editor/video_placeholder.png';
+import video_icon from '../../assets/icons/video_icon.svg';
+import { ConfigProvider, Slider } from 'antd';
 
 const ffmpeg = createFFmpeg({ log: true });
 
@@ -21,6 +20,12 @@ function VideoEditor() {
     const [show, setShow] = useState(false);
     const uploadFile = useRef('');
 
+    console.log('', {
+        videoFile,
+        uploadFile,
+        videoPlayer,
+        videoPlayerState,
+    });
     useEffect(() => {
         // loading ffmpeg on startup
         ffmpeg.load().then(() => {
@@ -69,7 +74,7 @@ function VideoEditor() {
     if (!ffmpegLoaded) return <div>load</div>;
 
     return (
-        <article className="layout" style={{ padding: '56px 16px' }}>
+        <article className="layout" style={{ padding: '40px 0 120px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                 <h1 className={styles.title}>Video Edit</h1>
 
@@ -106,8 +111,12 @@ function VideoEditor() {
                     />
                 ) : (
                     <>
-                        <img src={video_placeholder} alt="비디오를 업로드해주세요." style={{ marginBottom: 32 }} />
-                        <div>
+                        <div className={styles.video__placeholder}>
+                            <img src={video_icon} alt="video upload" />
+                            <p>비디오를 업로드해주세요.</p>
+                        </div>
+
+                        <div style={{ textAlign: 'center' }}>
                             <input
                                 onChange={(e) => setVideoFile(e.target.files[0])}
                                 type="file"
@@ -127,20 +136,49 @@ function VideoEditor() {
                 <>
                     <section
                         style={{
-                            width: '100%',
-                            marginTop: 30,
-                            marginBottom: 62,
                             display: 'flex',
+                            gap: 8,
+                            marginTop: '24.5px',
                             justifyContent: 'center',
                         }}
                     >
-                        <MultiRangeSlider
-                            min={0}
-                            max={100}
-                            onChange={({ min, max }) => {
-                                setSliderValues([min, max]);
+                        <p style={{ color: '#828282', fontSize: 16, fontWeight: 500 }}>재생시간</p>
+                        <p style={{ color: '#000', fontSize: 16, fontWeight: 500 }}>
+                            {Math.round(videoPlayerState?.duration)}초
+                        </p>
+                    </section>
+
+                    <section
+                        style={{
+                            marginTop: 8,
+                            marginBottom: 24,
+                        }}
+                    >
+                        <ConfigProvider
+                            theme={{
+                                components: {
+                                    Slider: {
+                                        handleSize: 16,
+                                        dotBorderColor: '#fff',
+                                        dotActiveBorderColor: '#fff',
+                                        handleColor: '#2F80ED',
+                                        handleActiveColor: '#2F80ED',
+                                        trackBg: '#2F80ED',
+                                    },
+                                },
                             }}
-                        />
+                        >
+                            <Slider
+                                tooltip={{
+                                    open: false,
+                                }}
+                                range
+                                defaultValue={[0, 100]}
+                                onChange={(value) => {
+                                    setSliderValues(value);
+                                }}
+                            />
+                        </ConfigProvider>
                     </section>
 
                     <section>

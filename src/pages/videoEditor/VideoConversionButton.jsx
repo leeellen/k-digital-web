@@ -1,8 +1,10 @@
 import { Button } from 'antd';
 import { fetchFile } from '@ffmpeg/ffmpeg';
 import { readFileAsBase64, sliderValueToVideoTime } from '../../utils/utils';
+
 import out from '../../assets/icons/out.svg';
-import dark_download from '../../assets/icons/dark_download.svg';
+import download from '../../assets/icons/download.svg';
+import sound from '../../assets/icons/sound.svg';
 
 function VideoConversionButton({
     videoPlayerState,
@@ -11,29 +13,23 @@ function VideoConversionButton({
     ffmpeg,
     onConversionStart = () => {},
     onConversionEnd = () => {},
-    onGifCreated = () => {},
 }) {
     const convertToGif = async () => {
-        // starting the conversion process
         onConversionStart(true);
 
         const inputFileName = 'input.mp4';
         const outputFileName = 'output.gif';
 
-        // writing the video file to memory
         ffmpeg.FS('writeFile', inputFileName, await fetchFile(videoFile));
 
         const [min, max] = sliderValues;
         const minTime = sliderValueToVideoTime(videoPlayerState.duration, min);
         const maxTime = sliderValueToVideoTime(videoPlayerState.duration, max);
 
-        // cutting the video and converting it to GIF with a FFMpeg command
         await ffmpeg.run('-i', inputFileName, '-ss', `${minTime}`, '-to', `${maxTime}`, '-f', 'gif', outputFileName);
 
-        // reading the resulting file
         const data = ffmpeg.FS('readFile', outputFileName);
 
-        // converting the GIF file created by FFmpeg to a valid image URL
         const gifUrl = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
 
         const link = document.createElement('a');
@@ -41,7 +37,31 @@ function VideoConversionButton({
         link.setAttribute('download', '');
         link.click();
 
-        // ending the conversion process
+        onConversionEnd(false);
+    };
+
+    const convertToMp3 = async () => {
+        onConversionStart(true);
+
+        const inputFileName = 'input.mp4';
+        const outputFileName = 'output.mp3';
+
+        ffmpeg.FS('writeFile', inputFileName, await fetchFile(videoFile));
+
+        const [min, max] = sliderValues;
+        const minTime = sliderValueToVideoTime(videoPlayerState.duration, min);
+        const maxTime = sliderValueToVideoTime(videoPlayerState.duration, max);
+
+        await ffmpeg.run('-i', `${inputFileName}`, '-ss', `${minTime}`, '-to', `${maxTime}`, `${outputFileName}`);
+
+        const data = ffmpeg.FS('readFile', outputFileName);
+
+        const gifUrl = URL.createObjectURL(new Blob([data.buffer], { type: 'audio/mp3' }));
+
+        const link = document.createElement('a');
+        link.href = gifUrl;
+        link.setAttribute('download', '');
+        link.click();
 
         onConversionEnd(false);
     };
@@ -68,17 +88,22 @@ function VideoConversionButton({
     };
 
     return (
-        <>
-            <Button onClick={() => convertToGif()} className="gif__out__btn" style={{ marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16 }}>
+            <Button onClick={convertToGif} className="out__btn">
                 <img src={out} alt="GIF 내보내기" />
                 <p style={{ color: '#383838', fontSize: 16, fontWeight: 700 }}>GIF 내보내기</p>
             </Button>
 
-            <Button onClick={() => onCutTheVideo()} className="gif__out__btn">
-                <img src={dark_download} alt="비디오 저장하기" />
+            <Button onClick={convertToMp3} className="out__btn">
+                <img src={sound} alt="mp3 내보내기" />
+                <p style={{ color: '#383838', fontSize: 16, fontWeight: 700 }}>음성 내보내기</p>
+            </Button>
+
+            <Button onClick={onCutTheVideo} className="out__btn">
+                <img src={download} alt="비디오 보내내기" />
                 <p style={{ color: '#383838', fontSize: 16, fontWeight: 700 }}>비디오 저장하기</p>
             </Button>
-        </>
+        </div>
     );
 }
 

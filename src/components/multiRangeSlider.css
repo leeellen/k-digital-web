@@ -1,6 +1,6 @@
 .slider {
     position: relative;
-    width: 350px;
+    width: 100%;
 }
 
 .slider__track,
@@ -17,25 +17,25 @@
 }
 
 .slider__track {
-    background-color: #383838;
+    background-color: #2f80ed;
     width: 100%;
     z-index: 1;
 }
 
 .slider__range {
-    background-color: #2cadf9;
+    background-color: #2f80ed;
     z-index: 2;
 }
 
 .slider__left-value,
 .slider__right-value {
-    color: #2cadf9;
+    color: #2f80ed;
     font-size: 12px;
     margin-top: 20px;
 }
 
 .slider__left-value {
-    left: 6px;
+    /* left: 6px; */
 }
 
 .slider__right-value {
@@ -53,26 +53,29 @@
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: 350px;
+    width: 100%;
     outline: none;
 }
 
 .thumb--zindex-3 {
     z-index: 3;
+    width: 100%;
 }
 
 .thumb--zindex-4 {
     z-index: 4;
+    width: 100%;
 }
 
 .thumb--zindex-5 {
     z-index: 5;
+    width: 100%;
 }
 
 /* For Chrome browsers */
 .thumb::-webkit-slider-thumb {
-    background-color: #2cadf9;
-    border: none;
+    background-color: #2f80ed;
+    border: 2px solid #fff;
     border-radius: 50%;
     cursor: pointer;
     height: 18px;
@@ -84,8 +87,8 @@
 
 /* For Firefox browsers */
 .thumb::-moz-range-thumb {
-    background-color: #2cadf9;
-    border: none;
+    background-color: #2f80ed;
+    border: 2px solid #fff;
     border-radius: 50%;
     cursor: pointer;
     height: 18px;

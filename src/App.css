@@ -10,7 +10,7 @@
 .layout {
     width: 67.1%;
     margin: 0 auto;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .cards {
@@ -97,7 +97,7 @@ ul {
     padding: 0 !important;
 }
 
-.gif__out__btn {
+.out__btn {
     width: 100%;
     padding: 16px 8px;
     border-radius: 8px;
@@ -109,9 +109,9 @@ ul {
     background-color: #fff;
 }
 
-.gif__out__btn:hover,
-.gif__out__btn:focus,
-.gif__out__btn:active {
+.out__btn:hover,
+.out__btn:focus,
+.out__btn:active {
     background: #fff !important;
     border: none !important;
 }

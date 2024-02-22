@@ -15,9 +15,9 @@ export default function Header() {
                     </Link>
 
                     <div className={styles.header__links}>
-                        <Link to="/">
+                        <a href="/">
                             <p data-active={pathname === '/'}>비디오 편집</p>
-                        </Link>
+                        </a>
                         <Link to="/photo">
                             <p data-active={pathname === '/photo'}>이미지 편집</p>
                         </Link>

@@ -1,7 +1,6 @@
-import { BigPlayButton, ControlBar, LoadingSpinner, Player, PlayToggle } from 'video-react';
+import { useEffect, useState } from 'react';
+import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react';
 import 'video-react/dist/video-react.css';
-import { useEffect, useRef, useState } from 'react';
-import video_play from '../../assets/icons/video_play.svg';
 
 export function VideoPlayer({ src, onPlayerChange = () => {}, onChange = () => {}, startTime = undefined }) {
     const [player, setPlayer] = useState(undefined);

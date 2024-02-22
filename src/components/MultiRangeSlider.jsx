@@ -43,7 +43,7 @@ export default function MultiRangeSlider({ min, max, onChange, disabled }) {
     }, [minVal, maxVal]);
 
     return (
-        <div>
+        <div style={{ width: '100%' }}>
             <input
                 type="range"
                 min={min}

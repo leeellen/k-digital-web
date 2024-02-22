@@ -1,28 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css';
-
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-
-import Login from './pages/Login';
-import PhotoEditor from './pages/PhotoEditor';
-import VideoEditor from './pages/videoEditor/VideoEditor';
-
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <VideoEditor />,
-    },
-    {
-        path: '/login',
-        element: <Login />,
-    },
-    {
-        path: '/photo',
-        element: <PhotoEditor />,
-    },
-]);
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
